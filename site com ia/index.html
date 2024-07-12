@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Namorada Virtual Chat</title>
+  <link rel="stylesheet" href="css/index.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+</head>
+<body>
+    <h1 id="titulo">Namorada Virtualㅤㅤㅤ</h1>
+    <div class="chat-container">
+        <div class="chat-log" id="chat-log"></div>
+        <div class="input-container">
+          <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+          <button id="send-button">Enviar</button>
+        </div>
+      </div>
+      
+    <script type="module" src="js/server.js"></script>
+  </body>
+</html>
