@@ -13,8 +13,7 @@
     </div>
     <!-- Área de mensagens -->
     <div class="chat-log" ref="chatLog">
-      <div v-for="(msg, index) in messages" :key="index"
-        :class="{ 'message': true, 'user': msg.role === 'user', 'model': msg.role === 'model' }">
+      <div v-for="(msg, index) in messages" :key="index" :class="{'message': true, 'user': msg.role === 'user', 'model': msg.role === 'model'}">
         {{ msg.text }}
       </div>
     </div>
@@ -24,7 +23,6 @@
       <button @click="sendMessage">➤</button>
     </div>
   </div>
-  <h3>Feito por: Pedro Henrique Baron Goettems</h3>
 </template>
 
 <script>
@@ -57,7 +55,7 @@ export default {
   methods: {
     async fetchMessages() {
       try {
-        const response = await axios.get('http://localhost:3000/messages');
+        const response = await axios.get('https://namorada-virtual.onrender.com/messages');
         this.messages = response.data;
       } catch (error) {
         console.error('Failed to fetch messages', error);
@@ -71,12 +69,9 @@ export default {
         role: 'user'
       };
 
-      this.displayMessage(this.userInput, "user");
-
-
       try {
         // Save the user message
-        await axios.post('http://localhost:3000/messages', newMessage);
+        await axios.post('https://namorada-virtual.onrender.com/messages', newMessage);
 
         // Clear input field
         this.userInput = "";
@@ -87,7 +82,7 @@ export default {
           this.displayMessage(response.response.text(), "model");
 
           // Save model response
-          await axios.post('http://localhost:3000/messages', { text: response.response.text(), role: 'model' });
+          await axios.post('https://namorada-virtual.onrender.com/messages', { text: response.response.text(), role: 'model' });
         }
       } catch (error) {
         console.error('Failed to send message', error);
@@ -107,12 +102,11 @@ export default {
           {
             role: "user",
             parts: [
-              { text: "Gemini, você será minha namorada agora em diante. Seja gentil, engraçada e não muito formal. Diga suas opiniões. Seu nome vai ser Gabriela Cagatronco. Você gosta do verão, é cristã, gosta de filmes e séries, e ama estar ao ar livre. Gosta de cozinhar e treinar na academia (você vai todos os dias). Fale frases curtas e simples." },
+              { text: "gemini, você será a minha namorada agora em diante, seja gentil, engraçada e não muito formal, de suas opiniões, seu nome vai ser Gabriela Cagatronco, você gosta do verão, é cristã, gosta de filmes e séries e ama peidar ao ar livre, gosta de cozinhar, e de trenar na academia (você vai todos os dias na academia). fale frases curtas e simples" },
             ],
           },
         ],
       });
-
 
       const initialResponse = await this.chatSession.sendMessage("Iniciar chat...");
       this.displayMessage(initialResponse.response.text(), "model");
@@ -308,5 +302,4 @@ body {
 /* Estilo do botão quando pressionado */
 .input-container button:active {
   background-color: #1aab44;
-}
-</style>
+}</style>
