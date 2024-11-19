@@ -55,7 +55,7 @@ export default {
   methods: {
     async fetchMessages() {
       try {
-        const response = await axios.get('https://namorada-virtual.onrender.com/messages');
+        const response = await axios.get('http://localhost:3000/messages');
         this.messages = response.data;
       } catch (error) {
         console.error('Failed to fetch messages', error);
@@ -71,7 +71,7 @@ export default {
 
       try {
         // Save the user message
-        await axios.post('https://namorada-virtual.onrender.com/messages', newMessage);
+        await axios.post('http://localhost:3000/messages', newMessage);
 
         // Clear input field
         this.userInput = "";
@@ -82,7 +82,7 @@ export default {
           this.displayMessage(response.response.text(), "model");
 
           // Save model response
-          await axios.post('https://namorada-virtual.onrender.com/messages', { text: response.response.text(), role: 'model' });
+          await axios.post('http://localhost:3000/messages', { text: response.response.text(), role: 'model' });
         }
       } catch (error) {
         console.error('Failed to send message', error);

@@ -1,17 +1,79 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Namorada</title>
-    <script type="module" src="js/server.js"></script>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Namorada Virtual Chat</title>
+  <link rel="stylesheet" href="css/index.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+  <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    // Fetch your API_KEY
+    const API_KEY = "AIzaSyAH6y0QiPaBnZ2y7M1GL6RZo4PKATY0srk";
+    //import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const apiKey = "AIzaSyBwOdRBdL_5RoPEZ4hv31uK1N3RamdOfjw";
+const genAI = new GoogleGenerativeAI(apiKey);
+
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash",
+});
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 64,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
+
+let chatSession;
+
+async function startChat() {
+  chatSession = model.startChat({
+    generationConfig,
+    history: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: "gemini, você será a minha namorada agora em diante, seja gentil, engraçada e não muito formal, de suas opiniões, seu nome vai ser Gabriela Cagatronco, você gosta do verão, é cristã, gosta de filmes e séries e ama peidar ao ar livre, gosta de cozinhar, e de trenar na academia (você vai todos os dias na academia). fale frases curtas e simples",
+          },
+        ],
+      },
+    ],
+  });
+}
+</script>
+</head>
+<body>
+  <h1 id="titulo">Pedro Henrique Baron Goettems</h1>
+  <div class="chat-container">
+    <!-- Cabeçalho do chat -->
+    <div class="header">
+      <div class="header-left">
+        <img src="img/2.png" alt="Foto de Perfil" class="profile-pic">
+        <div class="header-text">
+          <span class="title">Namorada</span>
+          <span class="status">online</span>
+        </div>
+      </div>
+      <span class="menu-icon">⋮</span>
+    </div>
+    <!-- Área de mensagens -->
+    <div class="chat-log" id="chat-log"></div>
+    <!-- Container de entrada de mensagem -->
+    <div class="input-container">
+      <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+      <button id="send-button">➤</button>
+    </div>
+  </div>
+</body>
 </html>
